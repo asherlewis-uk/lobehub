@@ -1,0 +1,20 @@
+{
+  "name": "@lobechat/mobile",
+  "version": "0.0.0",
+  "private": true,
+  "description": "LobeHub iOS app — a Capacitor native shell around the mobile SPA",
+  "scripts": {
+    "add:ios": "cap add ios",
+    "copy:web": "rm -rf www && mkdir -p www && cp -R ../../dist/mobile/. www/",
+    "open": "cap open ios",
+    "run:ios": "cap run ios",
+    "sync": "cap sync ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.4.3",
+    "@capacitor/ios": "^7.4.3"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.4.3"
+  }
+}

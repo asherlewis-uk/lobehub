@@ -1,0 +1,11 @@
+# Dependencies
+node_modules/
+
+# Built web assets copied from ../../dist/mobile (keep the committed placeholder)
+www/*
+!www/index.html
+
+# Note: the generated ios/ project has its own .gitignore that covers
+# Pods, build output, DerivedData, App/App/public and generated config.
+
+.DS_Store
