@@ -158,3 +158,6 @@ docs/superpowers/
 .gitnexus/
 # .eslintignore
 .playwright-mcp/
+# Deployment secrets
+deploy/.secrets/
+
