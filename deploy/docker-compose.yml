@@ -1,0 +1,141 @@
+name: nexumchat
+services:
+  nexumchat:
+    image: lobehub/lobehub:latest
+    container_name: nexumchat
+    restart: always
+    ports:
+      - '127.0.0.1:3210:3210'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      s3:
+        condition: service_healthy
+      s3-init:
+        condition: service_completed_successfully
+      searxng:
+        condition: service_started
+    env_file:
+      - .env
+    environment:
+      - KEY_VAULTS_SECRET=${KEY_VAULTS_SECRET}
+      - AUTH_SECRET=${AUTH_SECRET}
+      - BETTER_AUTH_SECRET=${BETTER_AUTH_SECRET}
+      - JWKS_KEY=${JWKS_KEY}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - S3_ENDPOINT=${S3_ENDPOINT}
+      - S3_BUCKET=${S3_BUCKET}
+      - S3_ACCESS_KEY_ID=${S3_ACCESS_KEY_ID}
+      - S3_SECRET_ACCESS_KEY=${S3_SECRET_ACCESS_KEY}
+      - APP_URL=${APP_URL}
+      - INTERNAL_APP_URL=${INTERNAL_APP_URL}
+    networks:
+      - nexumchat-network
+
+  postgres:
+    image: paradedb/paradedb:latest-pg17
+    container_name: nexumchat-postgres
+    restart: always
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: ${LOBE_DB_NAME}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres']
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - nexumchat-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: nexumchat-redis
+    restart: always
+    command: redis-server --save 60 1000 --appendonly yes
+    volumes:
+      - ./data/redis:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - nexumchat-network
+
+  s3:
+    image: rustfs/rustfs:latest
+    container_name: nexumchat-s3
+    restart: always
+    ports:
+      - '9000:9000'
+      - '127.0.0.1:9001:9001'
+    environment:
+      RUSTFS_CONSOLE_ENABLE: 'true'
+      RUSTFS_ACCESS_KEY: ${RUSTFS_ACCESS_KEY}
+      RUSTFS_SECRET_KEY: ${RUSTFS_SECRET_KEY}
+    volumes:
+      - ./data/s3:/data
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://localhost:9000/health >/dev/null 2>&1 || exit 1']
+      interval: 5s
+      timeout: 3s
+      retries: 30
+    command:
+      ['--access-key', '${RUSTFS_ACCESS_KEY}', '--secret-key', '${RUSTFS_SECRET_KEY}', '/data']
+    networks:
+      - nexumchat-network
+
+  s3-init:
+    image: minio/mc:latest
+    container_name: nexumchat-s3-init
+    depends_on:
+      s3:
+        condition: service_healthy
+    entrypoint: /bin/sh
+    command:
+      - -c
+      - |
+        set -eu
+        mc alias set rustfs http://nexumchat-s3:9000 "${RUSTFS_ACCESS_KEY}" "${RUSTFS_SECRET_KEY}"
+        mc mb "rustfs/${RUSTFS_LOBE_BUCKET}" --ignore-existing
+        mc anonymous set-download "rustfs/${RUSTFS_LOBE_BUCKET}"
+    networks:
+      - nexumchat-network
+
+  searxng:
+    image: searxng/searxng:latest
+    container_name: nexumchat-searxng
+    restart: always
+    volumes:
+      - ./data/searxng/settings.yml:/etc/searxng/settings.yml:ro
+    networks:
+      - nexumchat-network
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: nexumchat-caddy
+    restart: always
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - nexumchat
+    networks:
+      - nexumchat-network
+
+networks:
+  nexumchat-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:

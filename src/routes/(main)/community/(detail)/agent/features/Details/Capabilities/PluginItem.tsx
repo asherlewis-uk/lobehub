@@ -104,7 +104,7 @@ const PluginItem = memo<PluginItemProps>(({ identifier }) => {
         avatar: '', // Avatar will be rendered by BuiltinToolIcon component
         category: undefined,
         createdAt: '',
-        description: `LobeHub Mcp Server: ${klavisTool.label}`,
+        description: `nexumChat MCP Server: ${klavisTool.label}`,
         homepage: 'https://klavis.ai',
         identifier: klavisTool.identifier,
         manifest: undefined,
@@ -138,7 +138,7 @@ const PluginItem = memo<PluginItemProps>(({ identifier }) => {
     // Check builtin tools (like lobe-cloud-sandbox, lobe-memory, etc.)
     if (builtinTool) {
       return {
-        author: 'LobeHub',
+        author: 'nexumChat',
         avatar: builtinTool.manifest.meta.avatar || '',
         category: undefined,
         createdAt: '',

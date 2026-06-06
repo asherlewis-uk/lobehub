@@ -25,7 +25,7 @@ const packageJSON = JSON.parse(await fs.readFile(path.join(__dirname, 'package.j
 
 const channel = process.env.UPDATE_CHANNEL;
 const arch = os.arch();
-const hasAppleCertificate = Boolean(process.env.CSC_LINK);
+const hasAppleCertificate = Boolean(process.env.CSC_LINK || process.env.CSC_NAME);
 
 // 自定义更新服务器 URL (用于 stable 频道)
 const updateServerUrl = process.env.UPDATE_SERVER_URL;
@@ -43,7 +43,7 @@ const isCanary = channel === 'canary';
 // Handles both base URL (https://cdn.example.com) and legacy URL with channel (https://cdn.example.com/stable)
 const stripChannelSuffix = (url) => url.replace(/\/(stable|nightly|canary|beta)\/?$/, '');
 
-// 根据 channel 配置 publish provider
+// Channel-based publish provider config
 // - 所有渠道 + UPDATE_SERVER_URL: 使用 generic (S3)
 // - 无 UPDATE_SERVER_URL: 回退到 GitHub (本地开发)
 const getPublishConfig = () => {
@@ -65,9 +65,9 @@ const getPublishConfig = () => {
   console.info(`📦 ${channelPath} channel: No UPDATE_SERVER_URL, falling back to GitHub provider`);
   return [
     {
-      owner: 'lobehub',
+      owner: 'nexumchat',
       provider: 'github',
-      repo: 'lobehub',
+      repo: 'nexumchat',
     },
   ];
 };
@@ -83,14 +83,14 @@ if (!hasAppleCertificate) {
   console.info('⚠️ Apple certificate link not found, macOS artifacts will be unsigned.');
 }
 
-// 根据版本类型确定协议 scheme
+// Determine protocol scheme based on channel
 const getProtocolScheme = () => {
-  if (isCanary) return 'lobehub-canary';
-  if (isNightly) return 'lobehub-nightly';
-  return 'lobehub';
+  if (isCanary) return 'nexumchat-canary';
+  if (isNightly) return 'nexumchat-nightly';
+  return 'nexumchat';
 };
 
-const protocolScheme = getProtocolScheme();
+const protocolScheme = 'nexumchat';
 
 // Determine icon file based on version type
 const getIconFileName = () => {
@@ -213,7 +213,7 @@ const config = {
       console.info(`⏭️  Skipping Assets.car (not found or copy failed)`);
     }
   },
-  appId: 'com.lobehub.lobehub-desktop',
+  appId: 'com.nexumchat.desktop',
   appImage: {
     artifactName: '${productName}-${version}.${ext}',
   },
@@ -273,7 +273,7 @@ const config = {
       CFBundleIconName: 'AppIcon',
       CFBundleURLTypes: [
         {
-          CFBundleURLName: 'LobeHub Protocol',
+          CFBundleURLName: 'nexumChat Protocol',
           CFBundleURLSchemes: [protocolScheme],
         },
       ],
@@ -311,7 +311,7 @@ const config = {
   },
   protocols: [
     {
-      name: 'LobeHub Protocol',
+      name: 'nexumChat Protocol',
       schemes: [protocolScheme],
     },
   ],
@@ -330,7 +330,7 @@ const config = {
   ],
 
   win: {
-    executableName: 'LobeHub',
+    executableName: 'nexumChat',
   },
 };
 

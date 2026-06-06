@@ -1,0 +1,9 @@
+use_default_settings: true
+server:
+  secret_key: 0d7116f2e1944a0ad1a8ec9807ef03cffd3adacdcbd9e754b1ed92375f990bda
+  limiter: false
+search:
+  safe_search: 0
+  autocomplete: 'duckduckgo'
+ui:
+  static_use_hash: true

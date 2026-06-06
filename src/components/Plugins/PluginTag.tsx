@@ -17,7 +17,8 @@ const PluginTag = memo<PluginTagProps>(
   ({ showIcon = true, author, type, showText = true, isMCP }) => {
     const { t } = useTranslation('plugin');
     const isCustom = type === 'customPlugin';
-    const isOfficial = author === 'LobeHub';
+    const isOfficial = author === 'nexumChat';
+    const isPoweredBy = author === 'LobeHub';
 
     const customTag = (
       <Tag color={'warning'} icon={showIcon && <Icon icon={Package} />} size={'small'}>
@@ -35,6 +36,18 @@ const PluginTag = memo<PluginTagProps>(
     }
 
     if (isCustom) return customTag;
+
+    if (isPoweredBy) {
+      return (
+        <Tag
+          color={'blue'}
+          icon={showIcon && <Icon icon={BadgeCheck} />}
+          size={'small'}
+        >
+          {showText && 'Powered by LobeHub'}
+        </Tag>
+      );
+    }
 
     return (
       <Tag

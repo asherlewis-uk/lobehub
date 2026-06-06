@@ -24,8 +24,8 @@ const rawServerUrl = process.env.LOBE_MOBILE_SERVER_URL;
 const serverUrl = rawServerUrl === undefined ? DEFAULT_SERVER_URL : rawServerUrl;
 
 const config: CapacitorConfig = {
-  appId: 'com.lobehub.app',
-  appName: 'LobeHub',
+  appId: 'com.nexumchat.app',
+  appName: 'nexumChat',
   ios: {
     // Let the web content manage its own safe-area insets.
     contentInset: 'always',

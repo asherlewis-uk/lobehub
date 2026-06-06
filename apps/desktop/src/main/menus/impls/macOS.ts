@@ -256,19 +256,19 @@ export class MacOSMenu extends BaseMenuPlatform implements IMenuPlatform {
         submenu: [
           {
             click: async () => {
-              await shell.openExternal('https://lobehub.com');
+              await shell.openExternal('https://nexumchat.asherlewis.online');
             },
             label: t('help.visitWebsite'),
           },
           {
             click: async () => {
-              await shell.openExternal('https://github.com/lobehub/lobe-chat');
+              await shell.openExternal('https://github.com/nexumchat/nexumchat');
             },
             label: t('help.githubRepo'),
           },
           {
             click: async () => {
-              await shell.openExternal('https://github.com/lobehub/lobe-chat/issues/new/choose');
+              await shell.openExternal('https://github.com/nexumchat/nexumchat/issues/new/choose');
             },
             label: t('help.reportIssue'),
           },

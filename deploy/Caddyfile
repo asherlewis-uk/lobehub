@@ -1,0 +1,13 @@
+nexumchat.asherlewis.online {
+    reverse_proxy nexumchat:3210
+    encode gzip zstd
+    header {
+        X-Frame-Options SAMEORIGIN
+        X-Content-Type-Options nosniff
+        Referrer-Policy strict-origin-when-cross-origin
+    }
+}
+
+s3.nexumchat.asherlewis.online {
+    reverse_proxy nexumchat-s3:9000
+}

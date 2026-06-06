@@ -31,6 +31,14 @@ const styles = createStaticStyles(({ css, cssVar }) => ({
       color: ${cssVar.colorSuccess};
     }
   `,
+  poweredBy: css`
+    color: color-mix(in srgb, ${cssVar.colorPrimary} 75%, transparent);
+    background: ${cssVar.colorPrimaryBg};
+
+    &:hover {
+      color: ${cssVar.colorPrimary};
+    }
+  `,
 }));
 
 interface PluginTagProps extends Pick<InstallPluginMeta, 'author' | 'type'> {
@@ -41,14 +49,20 @@ interface PluginTagProps extends Pick<InstallPluginMeta, 'author' | 'type'> {
 const PluginTag = memo<PluginTagProps>(({ showIcon = true, author, type, showText = true }) => {
   const { t } = useTranslation('plugin');
   const isCustom = type === 'customPlugin';
-  const isOfficial = author === 'LobeHub';
+  const isOfficial = author === 'nexumChat';
+  const isPoweredBy = author === 'LobeHub';
 
   return (
     <Tag
-      className={cx(isCustom ? styles.custom : isOfficial ? styles.official : styles.community)}
-      icon={showIcon && <Icon icon={isCustom ? Package : isOfficial ? BadgeCheck : CircleUser} />}
+      className={cx(
+        isCustom ? styles.custom : isOfficial ? styles.official : isPoweredBy ? styles.poweredBy : styles.community,
+      )}
+      icon={showIcon && <Icon icon={isCustom ? Package : isOfficial || isPoweredBy ? BadgeCheck : CircleUser} />}
     >
-      {showText && (author || t(isCustom ? 'store.customPlugin' : 'store.communityPlugin'))}
+      {showText &&
+        (isPoweredBy
+          ? 'Powered by LobeHub'
+          : author || t(isCustom ? 'store.customPlugin' : 'store.communityPlugin'))}
     </Tag>
   );
 });

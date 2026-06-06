@@ -68,6 +68,14 @@ const officialTag = (
   </Tooltip>
 );
 
+const poweredByTag = (
+  <Tooltip placement={'top'} title={'Powered by LobeHub'}>
+    <Tag color={'blue'} icon={<Icon icon={BadgeCheck} />} size={'small'}>
+      Powered by
+    </Tag>
+  </Tooltip>
+);
+
 type SkillPolicyMode = 'auto' | 'pinned';
 
 interface SkillDeleteConfig {
@@ -787,7 +795,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
                   displayName: type.label,
                   onDelete: () => removeKlavisServer(server.identifier),
                 },
-                extraTag: type.author === 'LobeHub' ? officialTag : undefined,
+                extraTag: type.author === 'nexumChat' ? officialTag : type.author === 'LobeHub' ? poweredByTag : undefined,
                 icon,
                 id: server.identifier,
                 popoverContent,
@@ -856,7 +864,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
             if (server?.status === LobehubSkillStatus.CONNECTED || server?.isConnected) {
               return createManagedSkillItem({
                 badge: <Icon icon={McpIcon} size={12} />,
-                extraTag: provider.author === 'LobeHub' ? officialTag : undefined,
+                extraTag: provider.author === 'nexumChat' ? officialTag : provider.author === 'LobeHub' ? poweredByTag : undefined,
                 icon,
                 id: server.identifier,
                 popoverContent,
@@ -1137,8 +1145,10 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
         <Tag color={'warning'} icon={<Icon icon={Package} />} size={'small'}>
           {t('store.customPlugin', { ns: 'plugin' })}
         </Tag>
-      ) : item.author === 'LobeHub' ? (
+      ) : item.author === 'nexumChat' ? (
         officialTag
+      ) : item.author === 'LobeHub' ? (
+        poweredByTag
       ) : undefined,
       icon,
       id: item.identifier,

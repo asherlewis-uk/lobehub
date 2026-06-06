@@ -11,6 +11,7 @@ import { styles } from './styles';
 const Overview = memo(() => {
   const { t } = useTranslation(['plugin']);
   const { author, authorUrl, localizedReadme } = useDetailContext();
+  const displayAuthor = author === 'LobeHub' ? 'Powered by LobeHub' : author;
 
   const handleAuthorClick = () => {
     if (authorUrl) {
@@ -32,7 +33,7 @@ const Overview = memo(() => {
             style={{ cursor: authorUrl ? 'pointer' : 'default' }}
             onClick={handleAuthorClick}
           >
-            {author}
+            {displayAuthor}
             {authorUrl && <Icon icon={ExternalLink} size={12} />}
           </span>
         </Flexbox>
@@ -52,7 +53,7 @@ const Overview = memo(() => {
               style={{ cursor: authorUrl ? 'pointer' : 'default' }}
               onClick={handleAuthorClick}
             >
-              {author}
+              {displayAuthor}
               {authorUrl && <Icon icon={ExternalLink} size={12} />}
             </span>
           </div>

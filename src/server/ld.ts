@@ -27,7 +27,7 @@ export const AUTHOR_LIST = {
   lobehub: {
     avatar: 'https://avatars.githubusercontent.com/u/131470832?v=4',
     desc: 'Official Account',
-    name: 'LobeHub',
+    name: 'nexumChat',
     url: 'https://github.com/lobehub',
   },
 };
