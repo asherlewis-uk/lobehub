@@ -662,7 +662,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
   const allKlavisServers = useToolStore(klavisStoreSelectors.getServers, isEqual);
   const isKlavisEnabledInEnv = useServerConfigStore(serverConfigSelectors.enableKlavis);
 
-  // nexumChat Skill related state
+  // LobeHub Skill related state
   const allLobehubSkillServers = useToolStore(lobehubSkillStoreSelectors.getServers, isEqual);
   const isLobehubSkillEnabled = useServerConfigStore(serverConfigSelectors.enableLobehubSkill);
 
@@ -691,7 +691,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
   // Load user's Klavis integrations via SWR (from database)
   useFetchUserKlavisServers(isKlavisEnabledInEnv);
 
-  // Load user's nexumChat Skill connections via SWR
+  // Load user's LobeHub Skill connections via SWR
   useFetchLobehubSkillConnections(isLobehubSkillEnabled);
 
   // Get connected server by identifier
@@ -787,7 +787,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
                   displayName: type.label,
                   onDelete: () => removeKlavisServer(server.identifier),
                 },
-                extraTag: type.author === 'nexumChat' ? officialTag : undefined,
+                extraTag: type.author === 'LobeHub' ? officialTag : undefined,
                 icon,
                 id: server.identifier,
                 popoverContent,
@@ -856,7 +856,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
             if (server?.status === LobehubSkillStatus.CONNECTED || server?.isConnected) {
               return createManagedSkillItem({
                 badge: <Icon icon={McpIcon} size={12} />,
-                extraTag: provider.author === 'nexumChat' ? officialTag : undefined,
+                extraTag: provider.author === 'LobeHub' ? officialTag : undefined,
                 icon,
                 id: server.identifier,
                 popoverContent,
@@ -1137,7 +1137,7 @@ export const useControls = ({ closeDropdown }: { closeDropdown?: () => void } = 
         <Tag color={'warning'} icon={<Icon icon={Package} />} size={'small'}>
           {t('store.customPlugin', { ns: 'plugin' })}
         </Tag>
-      ) : item.author === 'nexumChat' ? (
+      ) : item.author === 'LobeHub' ? (
         officialTag
       ) : undefined,
       icon,

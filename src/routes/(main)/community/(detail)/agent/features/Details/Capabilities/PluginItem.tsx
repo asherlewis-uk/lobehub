@@ -138,7 +138,7 @@ const PluginItem = memo<PluginItemProps>(({ identifier }) => {
     // Check builtin tools (like lobe-cloud-sandbox, lobe-memory, etc.)
     if (builtinTool) {
       return {
-        author: 'nexumChat',
+        author: 'LobeHub',
         avatar: builtinTool.manifest.meta.avatar || '',
         category: undefined,
         createdAt: '',

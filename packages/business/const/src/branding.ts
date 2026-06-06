@@ -34,7 +34,7 @@ export const BRANDING_EMAIL = {
   support: 'support@nexumchat.com',
 };
 
-export const BRANDING_PROVIDER = 'nexumchat';
+export const BRANDING_PROVIDER = 'lobehub';
 
 export const COPYRIGHT = `© ${new Date().getFullYear()} ${ORG_NAME}`;
 export const COPYRIGHT_FULL = `${COPYRIGHT}. All rights reserved.`;

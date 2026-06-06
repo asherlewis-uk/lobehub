@@ -1142,7 +1142,7 @@ export class DiscoverService {
     if (builtinTool) {
       log('getPluginDetail: found builtin tool for identifier=%s', identifier);
       const plugin: DiscoverPluginDetail = {
-        author: 'nexumChat',
+        author: 'LobeHub',
         avatar: builtinTool.manifest.meta.avatar || '',
         category: undefined,
         createdAt: '',

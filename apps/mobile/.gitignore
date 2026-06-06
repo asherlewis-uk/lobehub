@@ -8,4 +8,8 @@ www/*
 # Note: the generated ios/ project has its own .gitignore that covers
 # Pods, build output, DerivedData, App/App/public and generated config.
 
+# Build artifacts
+*.ipa
+*.xcarchive
+
 .DS_Store
