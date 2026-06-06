@@ -12,20 +12,20 @@
 
 ### Variants
 
-| Variant | Background | Text | Border | Shadow |
-|---|---|---|---|---|
-| Primary | `--gradient-brand` | `#FFFFFF` | transparent | `--glow-violet` |
-| Secondary | `--color-surface-2` | `--color-text` | `--color-border` | none |
-| Ghost | transparent | `--color-text-muted` | transparent | none |
-| Destructive | `--color-danger` | `#FFFFFF` | transparent | none |
+| Variant     | Background          | Text                 | Border           | Shadow          |
+| ----------- | ------------------- | -------------------- | ---------------- | --------------- |
+| Primary     | `--gradient-brand`  | `#FFFFFF`            | transparent      | `--glow-violet` |
+| Secondary   | `--color-surface-2` | `--color-text`       | `--color-border` | none            |
+| Ghost       | transparent         | `--color-text-muted` | transparent      | none            |
+| Destructive | `--color-danger`    | `#FFFFFF`            | transparent      | none            |
 
 ### Sizes
 
-| Size | Height | Padding X | Radius | Font |
-|---|---:|---:|---:|---|
-| sm | 32px | 12px | 8px | caption |
-| md | 40px | 16px | 12px | small/body-strong |
-| lg | 48px | 20px | 14px | body-strong |
+| Size | Height | Padding X | Radius | Font              |
+| ---- | -----: | --------: | -----: | ----------------- |
+| sm   |   32px |      12px |    8px | caption           |
+| md   |   40px |      16px |   12px | small/body-strong |
+| lg   |   48px |      20px |   14px | body-strong       |
 
 ### States
 
@@ -150,7 +150,7 @@
 - Shadow: `--shadow-4`.
 - Auto-dismiss: 4s for success/info, manual for errors.
 
-## LobeHub-specific surfaces
+## nexumChat product surfaces
 
 ### Chat shell
 

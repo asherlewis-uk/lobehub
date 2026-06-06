@@ -4,6 +4,18 @@ This archive converts the nexumChat brand direction into an implementation-ready
 
 Brand spelling rule: **always use `nexumChat`** exactly: lowercase `nexum`, uppercase `C`, no spaces.
 
+## Scope and non-goals
+
+This pack changes **visual design and logo only**. When applying it, do **not** modify:
+
+- runtime logic or control flow
+- data models, database schemas, or migrations
+- API contracts, tRPC routers, or server endpoints
+- provider identifiers or any value used as a functional key
+- authentication, sessions, passkeys, or OAuth configuration
+
+Branding strings are treated as **display-only** (user-visible text, logos, icons, colors, typography, spacing, motion). If applying the brand appears to require a non-visual code change, stop and treat it as out of scope.
+
 ## What's included
 
 - `tokens/tokens.json` — source-of-truth tokens for colors, spacing, radius, typography, opacity, elevation, motion and z-index.
