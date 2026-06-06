@@ -25,7 +25,7 @@ import { useGlobalStore } from '@/store/global';
 import { systemStatusSelectors } from '@/store/global/selectors';
 import { useUserStore } from '@/store/user';
 import { userGeneralSettingsSelectors } from '@/store/user/selectors';
-import { GlobalStyle } from '@/styles';
+import { GlobalStyle, NexumChatTokenStyle } from '@/styles';
 import { setCookie } from '@/utils/client/cookie';
 
 const styles = createStaticStyles(({ css, cssVar }) => ({
@@ -162,7 +162,9 @@ const AppTheme = memo<AppThemeProps>(
           defaultThemeMode={currentAppearence}
           customTheme={{
             neutralColor: neutralColor ?? defaultNeutralColor,
-            primaryColor: primaryColor ?? defaultPrimaryColor,
+            // Pin the primary color to the nexumChat brand so user settings do
+            // not override the design-pack palette.
+            primaryColor: defaultPrimaryColor ?? primaryColor,
           }}
           theme={{
             cssVar: { key: 'lobe-vars' },
@@ -177,6 +179,7 @@ const AppTheme = memo<AppThemeProps>(
         >
           {!!customFontURL && <FontLoader url={customFontURL} />}
           <GlobalStyle />
+          <NexumChatTokenStyle />
           <AntdStaticMethods />
           <ConfigProvider
             locale={uiLocale}

@@ -37,3 +37,8 @@ docs/.local
 
 # MCP tools
 /.serena/**
+
+# .stylelintignore
+.playwright-mcp/
+build/
+dist/

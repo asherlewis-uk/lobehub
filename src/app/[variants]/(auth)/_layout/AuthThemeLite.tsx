@@ -12,6 +12,7 @@ import { memo } from 'react';
 import AntdStaticMethods from '@/components/AntdStaticMethods';
 import { useIsDark } from '@/hooks/useIsDark';
 import Image from '@/libs/next/Image';
+import { NexumChatTokenStyle } from '@/styles';
 
 interface AuthThemeLiteProps extends PropsWithChildren {
   globalCDN?: boolean;
@@ -32,6 +33,7 @@ const AuthThemeLite = memo<AuthThemeLiteProps>(({ children, globalCDN }) => {
         cssVar: { key: 'lobe-vars' },
       }}
     >
+      <NexumChatTokenStyle />
       <App style={{ height: '100%' }}>
         <AntdStaticMethods />
         <ConfigProvider
